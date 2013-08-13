@@ -7,7 +7,7 @@ An easy to use, Python/arduino based robotics kit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Directions for use
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The default port for the arduino to connect to is ./ttyACM0/ this will
+The default port for the arduino to connect to is ./ttyACMO/ this will
 be different on windows and mac and can be changed by editing the "ser" variable in the source files
 
 
