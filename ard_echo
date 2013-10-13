@@ -1,0 +1,28 @@
+int one;
+int two;
+int three;
+
+void setup() {
+  // put your setup code here, to run once:
+  
+  Serial.begin(9600);
+  delay(30);
+  Serial.println(1);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly: 
+if (Serial.available()>0){ 
+one =Serial.parseInt();
+two =Serial.parseInt();
+three = Serial.parseInt();
+
+//Serial.println(one);
+ //delay(100);
+//Serial.println(two);
+//delay(100);
+Serial.println(three);
+delay(40);
+ }
+  
+}
