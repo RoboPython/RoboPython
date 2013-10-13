@@ -2,17 +2,6 @@ import serial
 import time
 import sys,os
 
-
-'''
-Created By Adam Ferguson (@robo_python) 2013
-In subsequent uses orginal creator must be credited
-but released as opensource software
-'''
-
-
-
-
-
 ser = serial.Serial("/dev/ttyACM0",9600, timeout= 2)
 
 #apparently you can't int() 0 soooo for the purposes of
@@ -43,9 +32,11 @@ class Output(object):
 		sys.exit()
 
 	if self._d == True or self._d == False:
+		print "sending data"
 		ser.write("4" +"," + str(self._pin_no)+"," +str(self._dispatch_val))
 		a =ser.readline()
 		time.sleep(0.5)
+		print a
             	if not int(a) == int(self._dispatch_val):
                 	print "CODE EXITED with ERROR 1: Serial Error"
                 	sys.exit()

@@ -2,15 +2,6 @@ import os,sys
 import serial
 import time
 
-
-
-'''
-Created By Adam Ferguson (@robo_python) 2013
-In subsequent uses orginal creator must be credited
-but released as opensource software
-'''
-
-
 ser = serial.Serial("/dev/ttyACM0",9600, timeout= 2)
 
 class Servo(object):
@@ -28,13 +19,14 @@ class Servo(object):
     	self._angle = value
 	
 	if self._angle <=180:
+		print "sending data"
 		ser.write("1" +"," + str(self._servo_no)+"," +str(self._angle))
-		time.sleep(1)
 		self.a =ser.readline().rstrip()
-		time.sleep(1)
+		print self.a
+		print self._angle
             	if not str(self.a) == str(self._angle):
                 	print "CODE EXITED with ERROR 1: Serial Error"
-                	sys.exit()
+                	#sys.exit()
         
         elif self._angle >180 or self._angle < 0:
             print "CODE EXITED with ERROR 2: Servo Position not in range from 0-180"

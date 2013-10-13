@@ -2,14 +2,6 @@ import os,sys
 import serial
 import time
 
-'''
-Created By Adam Ferguson (@robo_python) 2013
-In subsequent uses orginal creator must be credited
-but released as opensource software
-'''
-
-
-
 ser = serial.Serial("/dev/ttyACM0",9600, timeout= 2)
 
 class Motor(object):
@@ -29,6 +21,7 @@ class Motor(object):
         self._speed = value
         
         if self._speed <=100 and self._speed >= 0:
+		print "sending data"
 
 		speed_float = float(self._speed)
 		speed_fraction=  speed_float/100.00
@@ -36,14 +29,15 @@ class Motor(object):
 		int_speed = int(nearest_number_speed)
 		
 		ser.write("2" + "," +str(self._motor_no) +","+str(int_speed))
-		time.sleep(1)
 		self.a =ser.readline().rstrip()
-		time.sleep(1)
+		print self.a
+		print int_speed
 		if not str(self.a) == str(int_speed):
                 	print "CODE EXITED with ERROR 1: Serial Error"
 			sys.exit()
 
 	if self._speed <0 and self._speed >= -100:
+		print "sending data"
 		
 		self._speed = abs(self._speed)
 		speed_float = float(self._speed)
@@ -53,7 +47,8 @@ class Motor(object):
 
 		ser.write("3" + "," +str(self._motor_no) +","+str(int_speed))
 		a =ser.readline().rstrip()
-		time.sleep(0.5)
+		print a
+		print int_speed
 		if not int(a) == int(int_speed):
                 	print "CODE EXITED with ERROR 1: Serial Error"
                 	sys.exit()

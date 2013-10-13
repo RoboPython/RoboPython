@@ -2,20 +2,6 @@ import os,sys
 import serial
 import time 
 
-'''
-Created By Adam Ferguson (@robo_python) 2013
-In subsequent uses orginal creator must be credited
-but released as opensource software
-'''
-
-
-
-
-
-
-
-
-
 ser = serial.Serial("/dev/ttyACM0",9600, timeout= 2)
 
 #arduino won't read strings as im using getint() so changed query to 1
@@ -34,6 +20,7 @@ class Input(object):
 
     @property
     def a(self):
+	print "sending data"
         ser.write("5" + "," +str(self._pin_no) +","+"1")
 	check = ser.readline().rstrip()
 	if str(check) == "1":
@@ -49,7 +36,6 @@ class Input(object):
 			return float(self._a)
 	else:
 		print "CODE EXITED with ERROR 1: Serial Error"
-		sys.exit()
     @a.setter
     def a(self, a):
         print "CODE EXITED with ERROR 5: You are not allowed to set input values"
@@ -62,9 +48,11 @@ class Input(object):
 
     @property
     def d(self):
+        print "sending data"
         ser.write("6" + "," +str(self._pin_no) +","+"1")
 	time.sleep(1)
         self._dinput_value = ser.readline().rstrip()
+	print self._dinput_value
 	
 	time.sleep(1)
 	if str(self._dinput_value) =="1":
