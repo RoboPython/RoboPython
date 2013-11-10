@@ -60,9 +60,9 @@ void setup()
    
    //digital input pin set-up -done
   for (int i =0;i<16;i++){
-  pinMode(Digital_Input_List[i], OUTPUT);   
+  pinMode(Digital_Input_List[i], INPUT);   
   }
-
+  //staff inputs -done
   for (int i =0;i<3;i++){
   pinMode(Staff_Input_List[i], OUTPUT);   
   }

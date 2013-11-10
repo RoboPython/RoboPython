@@ -50,11 +50,9 @@ class Input(object):
     def d(self):
         print "sending data"
         ser.write("6" + "," +str(self._pin_no) +","+"1")
-	time.sleep(1)
-        self._dinput_value = ser.readline().rstrip()
+	self._dinput_value = ser.readline().rstrip()
 	print self._dinput_value
-	
-	time.sleep(1)
+	self._dinput_value = ser.readline().rstrip()
 	if str(self._dinput_value) =="1":
 		self._d = False
 		return self._d

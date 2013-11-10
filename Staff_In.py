@@ -17,13 +17,11 @@ class Input(object):
 
     @property
     def d(self):
-        print "sending data"
+
         ser.write("7" + "," +str(self._pin_no) +","+"1")
-	time.sleep(1)
         self._dinput_value = ser.readline().rstrip()
-	print self._dinput_value
+	self._dinput_value = ser.readline().rstrip()
 	
-	time.sleep(1)
 	if str(self._dinput_value) =="1":
 		self._d = False
 		return self._d

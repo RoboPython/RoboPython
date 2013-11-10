@@ -8,6 +8,7 @@ import random
 import os,sys
 from pykoki import *
 from cv2 import *
+import Staff_In
 
 '''
 Created By Adam Ferguson (@robo_python) 2013
@@ -42,6 +43,8 @@ def width_from_code(code):
 
 class Robot(object):
 	def __init__(self):
+		self.zone = 0
+		self.mode = "dev"
 		global ser
 		self.servos = [ servo.Servo(0,0),
 				servo.Servo(1,0),
@@ -85,20 +88,51 @@ class Robot(object):
 				In.Input(13,0),
 				In.Input(14,0),
 				In.Input(15,0)]
+		
+		self.staff_inputs = [ Staff_In.Input(0,0),
+				Staff_In.Input(1,0),
+				Staff_In.Input(2,0)]
 
 
 		self.a = ser.readline().rstrip()
 		while str(self.a) == "":
 			self.a = ser.readline().rstrip()
+		print "SWITCHES ON"
+		'''
+		while True:
+			a = self.staff_inputs[0].d
+			b = self.staff_inputs[1].d
+			c = self.staff_inputs[2].d
+			if a == True:
+				if self.zone <= 2:
+					self.zone +=1
+				elif self.zone == 3:
+					self.zone = 0
+				print "Your zone is:" + str(self.zone)
+			
+			if b == True:
+				if self.mode == "dev":
+					self.mode = "comp"
+				elif self.mode == "comp":
+					self.mode = "dev"
+				print "Your mode is:" + self.mode
+			
+			if c == True:
+				print "Starting User Code..."
+				break
+		'''
 
-		print "Starting user code"
 
-	def see(self, WIDTH, HEIGHT):
+	def see(self, WIDTH, HEIGHT, preview, preview_time_ms):
 
 		params = CameraParams(Point2Df(WIDTH/2, HEIGHT/2),
-                	      		Point2Df(571, 571),
+                	      		Point2Df(WIDTH, HEIGHT),
                       			Point2Di(WIDTH, HEIGHT))
-		command = 'raspistill -w '+str(WIDTH) +' -h '+str(HEIGHT)+' -n -t 0 -o /home/pi/test5.jpg'
+		if preview:
+			preview_select = ' -f'
+		else:
+			preview_select = ' -n'
+		command = 'raspistill -w '+str(WIDTH) +' -h '+str(HEIGHT)+ preview_select +' -t '+str(preview_time_ms) + ' -o /home/pi/test5.jpg'
 		os.system(command)
 		pic=cv2.cv.LoadImage("/home/pi/test5.jpg",CV_LOAD_IMAGE_GRAYSCALE) 
 		k = PyKoki()
